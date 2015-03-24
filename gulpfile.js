@@ -40,5 +40,20 @@ gulp.task("test", function(cb) {
 });
 
 gulp.task("default", function(cb) {
-  runSequence("serve", cb);
+  runSequence("serve", "watch", cb);
+});
+
+// Watch
+gulp.task("watch", function() {
+  gulp.watch(["./app/**/*.js*"], function() {
+    return gulp.src("./app/**/*.js*").pipe(shell.task([
+      "npm restart"
+    ]));
+  });
+gulp.task("watch", function() {
+  gulp.watch(["./config/**/*.js*"], function() {
+    return gulp.src("./config/**/*.js*").pipe(shell.task([
+      "npm restart"
+    ]));
+  });
 });

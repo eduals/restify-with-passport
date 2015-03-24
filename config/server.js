@@ -1,4 +1,4 @@
-module.exports = function(sql){
+module.exports = function(){
   var config = require('./config'),
       path = require('path');
 
@@ -15,14 +15,7 @@ module.exports = function(sql){
       flash = require("connect-flash"),
       passport = require("passport");
 
-
-	// Globbing model files
-	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
-		require(path.resolve(modelPath))(sql);
-	});
-
-
-  require('./passport');
+  require('./passport')();
 
   server.use(restify.acceptParser(server.acceptable));
   server.use(restify.queryParser());

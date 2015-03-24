@@ -27,7 +27,6 @@ module.exports.getGlobbedFiles = function(globPatterns, removeRoot) {
 
 	// The output array
 	var output = [];
-  console.log(globPatterns);
 	// If glob pattern is array so we use each pattern in a recursive way, otherwise we use glob
 	if (_.isArray(globPatterns)) {
 		globPatterns.forEach(function(globPattern) {

@@ -43,6 +43,7 @@
     "pg-hstore": "^2.3.1",
     "restify": "^3.0.1",
     "restify-session": "^1.0.4",
-    "sequelize": "^2.0.5"
+    "sequelize": "^2.0.5",
+    "colors": "~0.6.2"
   }
 }

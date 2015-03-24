@@ -3,6 +3,8 @@ module.exports = {
     name: 'paper_db',
     user: 'paper_user',
     pass: 'p@p3r_p@$$',
-    dialect: 'postgres'
+    dialect: 'postgres',
+    host: 'localhost',
+    port: 5432
   }
 };

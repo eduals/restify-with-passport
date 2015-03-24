@@ -5,7 +5,7 @@
  */
 var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
-	User = require('../../app/models/user.server.model');
+	User = require('../database').User;
 
 module.exports = function() {
 	// Use local strategy
@@ -14,7 +14,7 @@ module.exports = function() {
 			passwordField: 'password'
 		},
 		function(username, password, done) {
-			User.find({username: username}).success(function(user){
+			User.find({where : {username: username}}).success(function(user){
 	      if (!user){
 	        return done(null, false, { message: 'Nobody here by that name'} );
 	      }

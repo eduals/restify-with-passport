@@ -1,20 +1,29 @@
 exports.StartServer = function() {
 
   var init = require('./config/init'),
-      config = require('./config/config')
-      Sequelize = require('sequelize');
+      config = require('./config/config'),
+      db = require('./config/database');
 
-  var sql = new Sequelize(config.database.name, config.database.user, config.database.pass, {
-    host: 'localhost',
-    dialect: config.database.dialect,
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 10000
+  // Add coloring for console output
+  require('colors');
+
+  // Verify database connection and sync tables
+  db.sequelize.authenticate().complete(function(err) {
+    if (!!err) {
+      throw '✗ Database Connection Error: '.red + err;
+    }
+    else {
+      console.log('✔ Database Connection Success!'.green);
+      db.sequelize.sync()
+        .then(function() {
+          console.log('✔ Database Synced!'.green);
+        }).catch(function() {
+          throw '✗ Database Not Synced!'.red;
+        });
     }
   });
 
-  var server = require('./config/server')(sql);
+  var server = require('./config/server')();
 
   server.listen(config.port, function () {
     console.log('%s listening at %s', server.name, server.url);
