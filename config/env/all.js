@@ -4,6 +4,8 @@ module.exports = {
   version: '1.0.0',
 	port: process.env.PORT || 3000,
   url: 'http://127.0.0.1',
+  cookie_name: 'myapp',
+  session_secret: 'secret',
   getDBUrl: function(){
     var url = 'postgres://' +
             this.database.user + ':' +

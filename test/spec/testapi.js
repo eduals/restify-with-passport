@@ -1,26 +1,47 @@
-var restify = require('restify');
+var request = require('superagent');
 var assert = require('assert');
+var SessionID = null;
 
 before(function(done) {
     require('../../start_server').StartServer();
     // done();
 });
 
-// init the test client
-var client = restify.createJsonClient({
-    version: '*',
-    url: 'http://127.0.0.1:8080'
-});
-
-describe('service: hello', function() {
+describe('Test API', function() {
   // Test #1
   describe('200 response check', function() {
     it('should get a 200 response', function(done) {
-      client.get('/hello/world', function(err, req, res, data) {
+      request.get('http://127.0.0.1:3000/hello/world')
+      .end(function(err, res) {
         assert.ifError(err);
         if (res.statusCode != 200) {
             throw new Error('invalid response from /hello/world');
         }
+        done();
+      });
+    });
+  });
+
+  describe('user authentication', function(){
+    it('should authenticate a user', function(done){
+      request
+      .post('http://127.0.0.1:3000/auth/signin')
+      .send({ username: 'jasonv', password: 'jasonv' })
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+        var data = res.body;
+        SessionID = data.sid;
+        done();
+      });
+    });
+
+    it('should request user information in /user/me', function(done){
+      console.log("SESSION ID: "+ SessionID);
+      request
+      .get('http://127.0.0.1:3000/user/me')
+      .set('session-id', SessionID)
+      .set('Accept', 'application/json')
+      .end(function(err, res){
         done();
       });
     });

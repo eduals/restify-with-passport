@@ -8,12 +8,12 @@ var passport = require('passport'),
 module.exports = function() {
 	// Serialize sessions
 	passport.serializeUser(function(user, done) {
-		done(null, user);
+		done(null, user.id);
 	});
 
 	// Deserialize sessions
 	passport.deserializeUser(function(id, done) {
-    User.find({id: id}).success(function(user){
+    User.find({where: {id: id}}).success(function(user){
       return done(null, user);
     });
 	});

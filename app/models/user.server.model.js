@@ -21,7 +21,7 @@ module.exports = function(db){
     freezeTableName: true // Model tableName will be the same as the model name
   });
 
-  User.sync({force: true}).then(function () {
+  User.sync().then(function () {
     // Table created
     return User.create({
       firstName: 'Jason',
@@ -30,7 +30,7 @@ module.exports = function(db){
       password: 'jasonv'
     });
   }).catch(function(err){
-    console.log(err);
+    console.log('SYNC ERROR: ' + err);
   });
 
   return User;

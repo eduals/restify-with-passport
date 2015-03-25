@@ -20,7 +20,7 @@ gulp.task("protractor", function(cb) {
             '--baseUrl', 'http://127.0.0.1:8080',
           ]
       }))
-      .on('error', function(e) { throw e })
+      .on('error', function(e) { console.log(e); })
       .on('end', function() {
         cb();
       });
@@ -50,7 +50,7 @@ gulp.task("watch", function() {
       "npm restart"
     ]));
   });
-gulp.task("watch", function() {
+
   gulp.watch(["./config/**/*.js*"], function() {
     return gulp.src("./config/**/*.js*").pipe(shell.task([
       "npm restart"

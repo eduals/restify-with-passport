@@ -10,16 +10,16 @@ exports.StartServer = function() {
   // Verify database connection and sync tables
   db.sequelize.authenticate().complete(function(err) {
     if (!!err) {
-      throw '✗ Database Connection Error: '.red + err;
+      throw '✗ Database Connection Error: '.red;
     }
     else {
       console.log('✔ Database Connection Success!'.green);
       db.sequelize.sync()
-        .then(function() {
-          console.log('✔ Database Synced!'.green);
-        }).catch(function() {
-          throw '✗ Database Not Synced!'.red;
-        });
+      .then(function() {
+        console.log('✔ Database Synced!'.green);
+      }).catch(function() {
+        console.log('✗ Database Not Synced!'.red);
+      });
     }
   });
 

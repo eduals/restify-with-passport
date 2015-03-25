@@ -4,7 +4,7 @@ module.exports = function(){
 
   var restify = require('restify'),
       session = require('restify-session')({
-          debug : true,
+          debug : false,
           ttl   : 2
       }),
       server = restify.createServer({
@@ -21,7 +21,7 @@ module.exports = function(){
   server.use(restify.queryParser());
   server.use(restify.bodyParser());
 
-  server.use(flash());
+  // server.use(flash());
   server.use(session.sessionManager);
   server.use(passport.initialize());
   server.use(passport.session());
